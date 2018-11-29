@@ -1,0 +1,12 @@
+td {
+    width: 30px;
+    height: 30px;
+    border: solid 1px black;
+    text-align: center;
+    font-size: 18px;
+  }
+  
+  td:hover {
+    background-color: #dbdbdb;
+    cursor: pointer;
+  }
