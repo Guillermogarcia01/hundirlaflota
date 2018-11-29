@@ -7,25 +7,60 @@
     <title>Page Title</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" media="screen" href="estilos.css" />
-    <script src="app.js"></script>
     <script src="tablero.js"></script>
 </head>
 
 <body>
 
-
+    <p>seleccione un metodo de juego</p>
+    <input type="radio" name="metodoJuego" value="barcosAleatorios" id="metodoJuegoAleatorio"> barcos aleatorios<br>
+    <input type="radio" name="metodoJuego" value="barcosAMano" id="metodoJuegoMano"> Poner los barcos<br>
+    <button onclick="iniciarMetodoJuego()">Try it</button>
 
     <table id="game" class="tablero"></table>
     <p>as</p>
+    <p>Inserte la </p>
+    <input type="text" id="posicionX" value="">
+    <input type="text" id="posicionY" value="">
+    <br>
+    <input type="text" id="direccion" value="">
+    <p>Click the "Try it" button to get the text in the text field.</p>
+
+    <button onclick="aniadirBarcoMain()">Try it</button>
+    <p id="demo"></p>
+
     <table id="game2" class="tablero"></table>
     <script>
+
         tableroJugador1 = new tablero("game");
+        tableroJugador2 = new tablero("game2");
+
+        function iniciarMetodoJuego() {
+            if (document.getElementById("metodoJuegoMano").checked) {
+                alert("A mano");
+            }
+            else if (document.getElementById("metodoJuegoAleatorio").checked) {
+                alert("Aleatorio");
+            }
+            else{
+                alert("opcion no seleccionada");
+            }
+        }
+
+        function aniadirBarcoMain() {
+            var posicionX = document.getElementById("posicionX").value;
+            var posicionY = document.getElementById("posicionY").value;
+            var direccion = document.getElementById("direccion").value;
+            tableroJugador1.ponerBarco(posicionX, posicionY, direccion);
+        };
+
+
+
         tableroJugador1.dibujarTablero();
 
-        tableroJugador2 = new tablero("game2");
         tableroJugador2.dibujarTablero();
     </script>
-    
+
 
 
 

@@ -22,8 +22,11 @@ class tablero {
         this.tablero.prueba(this.fila, this.columa);
         this.textContent = "b";
 
-        console.log(this.tablero.arrayTablero);
     };
+
+    ponerBarco(posicionX,posicionY, direccion){
+        alert(posicionX + posicionY+ direccion);
+    }
 
     prueba(fila,columa){
         this.arrayTablero[fila][columa] = 'x';
