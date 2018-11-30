@@ -8,51 +8,70 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" media="screen" href="estilos.css" />
     <script src="tablero.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+        crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+        crossorigin="anonymous"></script>
+
 </head>
 
 <body>
 
-    <p>seleccione un metodo de juego</p>
-    <input type="radio" name="metodoJuego" value="barcosAleatorios" id="metodoJuegoAleatorio"> barcos aleatorios<br>
-    <input type="radio" name="metodoJuego" value="barcosAMano" id="metodoJuegoMano"> Poner los barcos<br>
-    <button onclick="iniciarMetodoJuego()">Try it</button>
+    <div class="container">
+        <div class="row mt-4">
+            <div class="col-sm">
+                <table id="game" class="tablero"></table>
+                <p>seleccione un metodo de juego</p>
+                <input type="button" name="metodoJuego" value="barcos aleatorios" id="metodoJuegoAleatorio" onclick="iniciarMetodoJuegoAleatorio()"><br>
+                <input type="button" name="metodoJuego" value="barcos a mano" id="metodoJuegoMano" onclick="iniciarMetodoJuegoAMano()"><br>
+            </div>
+            <div class="col-sm">
+                <input type="radio" name="metodoJuego" value="dirVertical" id="dirVertical" ><p id ="textVertical">vertical</p>  <br>
+                <input type="radio" name="metodoJuego" value="dirhorizontal" id="dirhorizontal"><p id ="textHorizontal"> horizontal</p><br>
+            </div>
+            <div class="col-sm">
+                <table id="game2" class="tablero"></table>
+            </div>
+        </div>
+    </div>
 
-    <table id="game" class="tablero"></table>
-    <p>as</p>
-    <p>Inserte la </p>
-    <input type="text" id="posicionX" value="">
-    <input type="text" id="posicionY" value="">
-    <br>
-    <input type="text" id="direccion" value="">
-    <p>Click the "Try it" button to get the text in the text field.</p>
 
-    <button onclick="aniadirBarcoMain()">Try it</button>
-    <p id="demo"></p>
 
-    <table id="game2" class="tablero"></table>
+
+
     <script>
+        
+        window.onload = function(){
+            document.getElementById("dirVertical").hidden = true;
+            document.getElementById("dirhorizontal").hidden = true;
+            document.getElementById("textVertical").hidden = true;
+            document.getElementById("textHorizontal").hidden = true;
+        }
+
+
 
         tableroJugador1 = new tablero("game");
         tableroJugador2 = new tablero("game2");
 
-        function iniciarMetodoJuego() {
-            if (document.getElementById("metodoJuegoMano").checked) {
-                alert("A mano");
-            }
-            else if (document.getElementById("metodoJuegoAleatorio").checked) {
-                alert("Aleatorio");
-            }
-            else{
-                alert("opcion no seleccionada");
-            }
+        function iniciarMetodoJuegoAleatorio() {
+            document.getElementById("metodoJuegoAleatorio").hidden = true;
+            document.getElementById("metodoJuegoMano").hidden = true;
+
         }
 
-        function aniadirBarcoMain() {
-            var posicionX = document.getElementById("posicionX").value;
-            var posicionY = document.getElementById("posicionY").value;
-            var direccion = document.getElementById("direccion").value;
-            tableroJugador1.ponerBarco(posicionX, posicionY, direccion);
-        };
+        function iniciarMetodoJuegoAMano() {
+            document.getElementById("metodoJuegoAleatorio").hidden = true;
+            document.getElementById("metodoJuegoMano").hidden = true;
+            document.getElementById("dirVertical").hidden = false;
+            document.getElementById("dirhorizontal").hidden = false;
+            document.getElementById("textVertical").hidden = false;
+            document.getElementById("textHorizontal").hidden = false;
+        }
+
 
 
 

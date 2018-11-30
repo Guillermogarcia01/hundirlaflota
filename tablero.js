@@ -8,12 +8,16 @@ class tablero {
         this.columa = 10;
         this.nombreTablero = nombreTablero;
         this.arrayTablero = new Array(this.columa);
+        this.barcos = new Array(4);
         for(let i = 0; i <= this.fila; ++i){
             this.arrayTablero[i] = new Array(this.columa);
             for(let j = 0; j <= this.columa; ++j){
                 this.arrayTablero[i][j] = 'o';
             }
         }
+
+
+
     }
 
     manejador(e) {
@@ -21,17 +25,17 @@ class tablero {
         alert(this.columa);
         this.tablero.prueba(this.fila, this.columa);
         this.textContent = "b";
-
+        alert(this.tablero.arrayTablero.a.fila);
     };
 
-    ponerBarco(posicionX,posicionY, direccion){
-        alert(posicionX + posicionY+ direccion);
-    }
-
+    
     prueba(fila,columa){
         this.arrayTablero[fila][columa] = 'x';
         alert(this.nombreTablero);
     }
+
+    
+
 
     dibujarTablero() {
         var tablero = document.getElementById(this.nombreTablero);
@@ -53,11 +57,12 @@ class tablero {
                     col.textContent = s;
 
                 } else {
-                    this.arrayTablero[s][r] = 0;
                     col.fila = s;
                     col.columa = r;
+                    
+                    this.arrayTablero.a = col;
                     col.tablero = this;
-                    col.textContent = contador;
+                    //col.textContent = contador;
                     col.addEventListener("click", this.manejador);
                     //col.removeEventListener("click",manejador); quita el manejador
                     contador++;
