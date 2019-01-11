@@ -1,5 +1,5 @@
 
-
+var numBarcos = 4;
 class tablero {
 
     
@@ -7,8 +7,11 @@ class tablero {
         this.fila = 10;
         this.columa = 10;
         this.nombreTablero = nombreTablero;
+        
         this.arrayTablero = new Array(this.columa);
         this.barcos = new Array(4);
+
+        
         for(let i = 0; i <= this.fila; ++i){
             this.arrayTablero[i] = new Array(this.columa);
             for(let j = 0; j <= this.columa; ++j){
@@ -17,15 +20,23 @@ class tablero {
         }
 
 
-
     }
 
     manejador(e) {
+
+        if(numBarcos > 0){
+            --numBarcos;
+            this.textContent = "b";
+
+        }
+        /*else{
+            this.textContent = "x";
+        }*/
+
+
         alert(this.fila);
         alert(this.columa);
         this.tablero.prueba(this.fila, this.columa);
-        this.textContent = "b";
-        alert(this.tablero.arrayTablero.a.fila);
     };
 
     
@@ -60,20 +71,31 @@ class tablero {
                     col.fila = s;
                     col.columa = r;
                     
-                    this.arrayTablero.a = col;
                     col.tablero = this;
                     //col.textContent = contador;
-                    col.addEventListener("click", this.manejador);
+                    //col.addEventListener("click", this.manejador);
                     //col.removeEventListener("click",manejador); quita el manejador
+                    this.arrayTablero[s][r] = col;
                     contador++;
                 }
             }
 
             tablero.appendChild(fila);
         }
+        //this.aniadirManejador();
+        //this.darEventoClick();
     };
 
-    
+
+    aniadirManejador(){
+
+        for (let i = 2; i < this.arrayTablero.length; i++) {
+            for (let j = 2; j < this.arrayTablero[i].length; j++) {
+                this.arrayTablero[i][j].col.addEventListener("click", this.manejador);
+            }
+        }
+    }
+
 
 
 }
