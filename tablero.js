@@ -1,5 +1,7 @@
 
 var numBarcos = 4;
+
+
 class tablero {
 
     
@@ -29,9 +31,13 @@ class tablero {
             this.textContent = "b";
 
         }
-        /*else{
+        else if(numBarcos == 0){
+            quitarManejador();
+            //aniadir bandera para comprobar en el index si ha aacabdo  de poner los barcos. si ha acabado habilitar el otro mapa de juebo
+        }
+        else{
             this.textContent = "x";
-        }*/
+        }
 
 
         alert(this.fila);
@@ -91,7 +97,16 @@ class tablero {
 
         for (let i = 2; i < this.arrayTablero.length; i++) {
             for (let j = 2; j < this.arrayTablero[i].length; j++) {
-                this.arrayTablero[i][j].col.addEventListener("click", this.manejador);
+                this.arrayTablero[i][j].addEventListener("click", this.manejador);
+            }
+        }
+    }
+
+    quitarManejador(){
+
+        for (let i = 2; i < this.arrayTablero.length; i++) {
+            for (let j = 2; j < this.arrayTablero[i].length; j++) {
+                this.arrayTablero[i][j].removeEventListener("click", this.manejador);
             }
         }
     }
