@@ -109,7 +109,10 @@ window.onload = function () {
 function iniciarMetodoJuegoAleatorio() {
     document.getElementById("metodoJuegoAleatorio").hidden = true;
     document.getElementById("metodoJuegoMano").hidden = true;
-
+    tableroJugador1.ponerBarcosAleatorios();
+    tableroJugador2 = new tablero("tablero2");
+    dibujarTablero(tableroJugador2);
+    
 }
 
 function iniciarMetodoJuegoAMano() {
@@ -134,5 +137,11 @@ function inicio(){
     
 }
 
+
+function ponerBarcosAleatorios(){
+
+    tableroJugador1.ponerBarcosAleatorios();
+
+}
 
 
