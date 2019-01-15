@@ -65,15 +65,19 @@ class tablero {
             var posX = this.generarNumeroAleatorio();
             var posY = this.generarNumeroAleatorio();
             if (direccion == 'v') {
-                if (6 - posX > 0){
-                    //comprobarBarco en vertical
-                    correcto = true;
+                if (6 - posX > 0) {
+                    if(!this.comprobarSiColisionaAlPonerBarco(4, posX, posY, direccion))
+                        correcto = false;
+                    else
+                        correcto = true;
                 }
             }
             else {
-                if (6 - posY > 0){
-                    //comprobarBarco en horizontal
-                    correcto = true;
+                if (6 - posY > 0) {
+                    if(!this.comprobarSiColisionaAlPonerBarco(4, posX, posY, direccion))
+                        correcto = false;
+                    else
+                        correcto = true;
                 }
             }
 
@@ -85,6 +89,45 @@ class tablero {
 
     }
 
+
+    comprobarSiColisionaAlPonerBarco(longitudBarco, posX, posY, direccion) {
+
+        for (let i = 0; i < this.barcos.length; ++i) {
+            var barcoAComprobar = this.barcos[i];
+            var posisicionesX = barcoAComprobar.obtenerCordenadasX();
+            var posisicionesY = barcoAComprobar.obtenerCordenadasY();
+
+            if (direccion == 'v') {
+                if (posY != posisicionesY[0])
+                    return true;
+                else {
+                    for (let j = 0; j < longitudBarco; ++j) {
+                        var posXTMP = posX + j;
+                        for (let k = 0; k < barcoAComprobar.obtenerLongitud(); ++k) {
+                            if (posXTMP == posisicionesX[k])
+                                return false;
+                        }
+                    }
+                }
+
+            } else {
+                if (posX != posisicionesX[0])
+                    return true;
+                else {
+                    for (let j = 0; j < longitudBarco; ++j) {
+                        var posYTMP = posY + j;
+                        for (let k = 0; k < barcoAComprobar.obtenerLongitud(); ++k) {
+                            if (posYTMP == posisicionesY[k])
+                                return false;
+                        }
+                    }
+                }
+            }
+
+        }
+        return true;
+
+    }
 
     generarNumeroAleatorio() {
         return Math.floor((Math.random() * 10) + 1);
