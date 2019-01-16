@@ -58,4 +58,20 @@ class barco{
         return this.direccion;
     }
 
+    obtenerVidas(){
+        return this.vidas;
+    }
+
+    obtenerEstadoHundido(){
+        return this.hundido;
+    }
+
+    hundirBarco(){
+        this.hundido = true;
+    }
+
+    restarUnaVida(){
+        --this.vidas;
+    }
+
 }

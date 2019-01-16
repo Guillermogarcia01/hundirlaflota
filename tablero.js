@@ -27,6 +27,34 @@ class tablero {
 
     }
 
+    comprobarHundido(){
+
+        for(let i = 0; i < this.numBarcos; ++i){
+            var barcoAComprobar = this.barcos[i];
+
+
+            if(barcoAComprobar.obtenerVidas() == 0 && barcoAComprobar.obtenerEstadoHundido() == false){
+                barcoAComprobar.hundirBarco();
+                return true;
+            }
+            
+        }
+        return false;
+
+
+    }
+
+    comprobarFinJUego(){
+        for(let i = 0; i < this.numBarcos; ++i){
+            var barcoAComprobar = this.barcos[i];
+
+            if(barcoAComprobar.obtenerEstadoHundido() == false){
+                return false;
+            }
+        }
+        return true;
+
+    }
 
     comprobarAtaque(cordenadaXAtaque, cordenadasYAtaque){
 
@@ -36,7 +64,7 @@ class tablero {
 
             for(let j = 0; j < this.barcos[i].obtenerLongitud(); ++j){
                 if(cordenasXBarco[j] == cordenadaXAtaque && cordenasYBarco[j] == cordenadasYAtaque){
-                    
+                    this.barcos[i].restarUnaVida();
                     return true;
                 }
             }

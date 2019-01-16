@@ -29,6 +29,14 @@ function manejador(e) {
         if(tableroJugador2.comprobarAtaque(this.fila, this.columna)){
             alert("tocado wey");
             this.textContent = "O";
+
+            if(tableroJugador2.comprobarHundido()){
+                alert("barco hundido wey");
+            }
+
+            if(tableroJugador2.comprobarFinJUego())
+                alert("ganaste");
+            
         }else{
             this.textContent = "X";
         }
