@@ -13,6 +13,7 @@ class barco{
         this.posicionesX = new Array(logitud);
         this.posicionesY = new Array(logitud);
         this.calcularLongitud();
+        this.hundido = false;
 
     };
 
@@ -53,5 +54,8 @@ class barco{
         return this.longitudBarcos;
     }
 
+    obtenerDireccion(){
+        return this.direccion;
+    }
 
 }

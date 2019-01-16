@@ -25,7 +25,15 @@ function manejador(e) {
         }
     }
     else {
-        this.textContent = "x";
+        
+        if(tableroJugador2.comprobarAtaque(this.fila, this.columna)){
+            alert("tocado wey");
+            this.textContent = "O";
+        }else{
+            this.textContent = "X";
+        }
+        quitarManejadorAUnaPosicion(tableroJugador2, this.fila,this.columna);
+
         //quitar el listener de una posicion
     }
 
@@ -43,6 +51,10 @@ function aniadirManejador(tablero) {
             tablero.arrayTablero[i][j].addEventListener("click", manejador);
         }
     }
+}
+
+function quitarManejadorAUnaPosicion(tablero, posX, posY){
+    tablero.arrayTablero[posX][posY].removeEventListener("click", manejador);
 }
 
 
@@ -78,7 +90,7 @@ function dibujarTablero(tableroTMP) {
 
             } else {
                 col.fila = s;
-                col.columa = r;
+                col.columna = r;
 
                 col.tablero = tableroTMP;
                 //col.textContent = contador;
@@ -109,10 +121,12 @@ window.onload = function () {
 function iniciarMetodoJuegoAleatorio() {
     document.getElementById("metodoJuegoAleatorio").hidden = true;
     document.getElementById("metodoJuegoMano").hidden = true;
-    tableroJugador1.ponerBarcosAleatorios();
+    tableroJugador1.generarBarcosAleatorio();
     tableroJugador2 = new tablero("tablero2");
+    quitarManejador(tableroJugador1);
     dibujarTablero(tableroJugador2);
-    
+    tableroJugador2.generarBarcosAleatorio();
+    editando = false;
 }
 
 function iniciarMetodoJuegoAMano() {
@@ -140,7 +154,7 @@ function inicio(){
 
 function ponerBarcosAleatorios(){
 
-    tableroJugador1.ponerBarcosAleatorios();
+    tableroJugador1.generarBarcosAleatorio();
 
 }
 
