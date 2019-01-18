@@ -3,54 +3,104 @@
 var tableroJugador1;
 var tableroJugador2;
 var editando = true;
-
-
+var direccionBarco;
+var longitudBarcos = [5, 4, 4, 3, 2];
+var barcoSiguiente = 0;
+var posicionesAtacadas = new Array();
 
 function manejador(e) {
 
     if (editando) {
-        tableroJugador1.restarUnBarco();
-        this.textContent = "b";
-        if(tableroJugador1.obtenerNumBarcos() != 0){
 
+        comprobarDireccionBarcoAPoner();
+        if (!tableroJugador1.ponerBarcoAMano(longitudBarcos[barcoSiguiente], this.fila, this.columna, direccionBarco)) {
+            alert("error al poner un barco, posicion no permitida");
+            return;
+        } else {
+            barcoSiguiente++;
         }
-        else{
+
+        tableroJugador1.retsarUnBarcoAColocar();
+        if (tableroJugador1.obtenerBarcosAColocar() != 0) {
+
+        } else {
             editando = false;
-            tableroJugador2 = new tablero("tablero2");
+            tableroJugador2 = new tablero("tablero2", true);
             dibujarTablero(tableroJugador2);
             quitarManejador(tableroJugador1);
+            tableroJugador2.generarBarcosAleatorio();
+            document.getElementById("dirVertical").hidden = true;
+            document.getElementById("dirhorizontal").hidden = true;
+            document.getElementById("textVertical").hidden = true;
+            document.getElementById("textHorizontal").hidden = true;
             //aniadirManejador(tableroJugador2);
             //generar barcos aleatorios del tablero 2
-            
+
         }
     }
     else {
-        
-        if(tableroJugador2.comprobarAtaque(this.fila, this.columna)){
+
+        if (tableroJugador2.comprobarAtaque(this.fila, this.columna)) {
             alert("tocado wey");
             this.textContent = "O";
 
-            if(tableroJugador2.comprobarHundido()){
-                alert("barco hundido wey");
-            }
+            if (tableroJugador2.comprobarHundido())
+                alert("barco hundido");
 
-            if(tableroJugador2.comprobarFinJUego())
-                alert("ganaste");
-            
-        }else{
+            if (tableroJugador2.comprobarFinJUego())
+                alert("fin del juego");
+
+
+        } else {
             this.textContent = "X";
         }
-        quitarManejadorAUnaPosicion(tableroJugador2, this.fila,this.columna);
+        quitarManejadorAUnaPosicion(tableroJugador2, this.fila, this.columna);
 
         //quitar el listener de una posicion
     }
 
-
+    atacar();
     /*alert(this.fila);
     alert(this.columa);
     this.tablero.prueba(this.fila, this.columa);*/
 };
 
+
+
+function atacar() {
+    posX = generarNumeroAleatorio();
+    posY = generarNumeroAleatorio();
+
+    var posicionesAtaque = posX.toString() + posY.toString();
+    alert(posicionesAtaque);
+    let posicionExistente = true;
+
+
+    for (let i = 0; i < posicionesAtacadas.length; ++i) {
+        if ()
+        }
+
+
+
+    tableroJugador1.arrayTablero[posX][posY].textContent = "a";
+
+}
+
+
+
+
+
+function generarNumeroAleatorio() {
+    return Math.floor((Math.random() * 10) + 1);
+}
+
+function comprobarDireccionBarcoAPoner() {
+    if (document.getElementById('dirVertical').checked) {
+        direccionBarco = 'v';
+    } else if (document.getElementById('dirhorizontal').checked) {
+        direccionBarco = 'h';
+    }
+}
 
 function aniadirManejador(tablero) {
 
@@ -61,7 +111,7 @@ function aniadirManejador(tablero) {
     }
 }
 
-function quitarManejadorAUnaPosicion(tablero, posX, posY){
+function quitarManejadorAUnaPosicion(tablero, posX, posY) {
     tablero.arrayTablero[posX][posY].removeEventListener("click", manejador);
 }
 
@@ -129,8 +179,10 @@ window.onload = function () {
 function iniciarMetodoJuegoAleatorio() {
     document.getElementById("metodoJuegoAleatorio").hidden = true;
     document.getElementById("metodoJuegoMano").hidden = true;
+    tableroJugador1 = new tablero("tablero1", false);
+    dibujarTablero(tableroJugador1);
     tableroJugador1.generarBarcosAleatorio();
-    tableroJugador2 = new tablero("tablero2");
+    tableroJugador2 = new tablero("tablero2", true);
     quitarManejador(tableroJugador1);
     dibujarTablero(tableroJugador2);
     tableroJugador2.generarBarcosAleatorio();
@@ -144,23 +196,27 @@ function iniciarMetodoJuegoAMano() {
     document.getElementById("dirhorizontal").hidden = false;
     document.getElementById("textVertical").hidden = false;
     document.getElementById("textHorizontal").hidden = false;
+    tableroJugador1 = new tablero("tablero1", false);
+    dibujarTablero(tableroJugador1);
+
+
 }
 
 
-function inicio(){
+function inicio() {
 
-    tableroJugador1 = new tablero("tablero1");
+    //tableroJugador1 = new tablero("tablero1");
 
-    dibujarTablero(tableroJugador1);
+    //dibujarTablero(tableroJugador1);
     //aniadirManejador(tableroJugador1);
 
     //tableroJugador2.dibujarTablero();
-   
-    
+
+
 }
 
 
-function ponerBarcosAleatorios(){
+function ponerBarcosAleatorios() {
 
     tableroJugador1.generarBarcosAleatorio();
 

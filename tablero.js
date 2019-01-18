@@ -7,11 +7,13 @@ const numBarcos = 5;
 class tablero {
 
 
-    constructor(nombreTablero) {
+    constructor(nombreTablero, maquina) {
         this.fila = 10;
         this.columa = 10;
         this.nombreTablero = nombreTablero;
         this.numBarcos = 0;
+        this.barcosAColocar = 5;
+        this.maquina = maquina;
 
         this.barcos = new Array(numBarcos);
         this.arrayTablero = new Array(this.columa);
@@ -27,28 +29,36 @@ class tablero {
 
     }
 
-    comprobarHundido(){
+    obtenerBarcosAColocar() {
+        return this.barcosAColocar;
+    }
 
-        for(let i = 0; i < this.numBarcos; ++i){
+    retsarUnBarcoAColocar() {
+        this.barcosAColocar--;
+    }
+
+    comprobarHundido() {
+
+        for (let i = 0; i < this.numBarcos; ++i) {
             var barcoAComprobar = this.barcos[i];
 
 
-            if(barcoAComprobar.obtenerVidas() == 0 && barcoAComprobar.obtenerEstadoHundido() == false){
+            if (barcoAComprobar.obtenerVidas() == 0 && barcoAComprobar.obtenerEstadoHundido() == false) {
                 barcoAComprobar.hundirBarco();
                 return true;
             }
-            
+
         }
         return false;
 
 
     }
 
-    comprobarFinJUego(){
-        for(let i = 0; i < this.numBarcos; ++i){
+    comprobarFinJUego() {
+        for (let i = 0; i < this.numBarcos; ++i) {
             var barcoAComprobar = this.barcos[i];
 
-            if(barcoAComprobar.obtenerEstadoHundido() == false){
+            if (barcoAComprobar.obtenerEstadoHundido() == false) {
                 return false;
             }
         }
@@ -56,15 +66,16 @@ class tablero {
 
     }
 
-    comprobarAtaque(cordenadaXAtaque, cordenadasYAtaque){
+    comprobarAtaque(cordenadaXAtaque, cordenadasYAtaque) {
 
-        for(let i = 0; i < this.numBarcos; ++i){
+        for (let i = 0; i < this.numBarcos; ++i) {
             var cordenasXBarco = this.barcos[i].obtenerCordenadasX();
             var cordenasYBarco = this.barcos[i].obtenerCordenadasY();
 
-            for(let j = 0; j < this.barcos[i].obtenerLongitud(); ++j){
-                if(cordenasXBarco[j] == cordenadaXAtaque && cordenasYBarco[j] == cordenadasYAtaque){
+            for (let j = 0; j < this.barcos[i].obtenerLongitud(); ++j) {
+                if (cordenasXBarco[j] == cordenadaXAtaque && cordenasYBarco[j] == cordenadasYAtaque) {
                     this.barcos[i].restarUnaVida();
+                    
                     return true;
                 }
             }
@@ -74,7 +85,7 @@ class tablero {
 
     }
 
-    
+
 
     prueba(fila, columa) {
         this.arrayTablero[fila][columa] = 'x';
@@ -95,6 +106,35 @@ class tablero {
 
     }
 
+    ponerBarcoAMano(tamanio, posX, posY, direccion) {
+
+        //es doce porque empieza en 1 por tanto 10 posiciones seria el 11
+        if (direccion == 'v') {
+            if (posX + tamanio < 12) {
+                if (!this.comprobarSiColisionaAlPonerBarco(tamanio, posX, posY, direccion))
+                    return false;
+            }else{
+                return false;
+            }
+        }
+        else {
+            if (posY + tamanio < 12) {
+                if (!this.comprobarSiColisionaAlPonerBarco(4, posX, posY, direccion))
+                    return false;
+                
+            }else{
+                return false;
+            }
+        }
+
+        var barcoGenerado = new barco(tamanio, posX, posY, direccion);
+        this.barcos[this.numBarcos] = barcoGenerado;
+        this.pintarBarco(this.barcos[this.numBarcos]);
+        this.numBarcos++;
+        return true;
+
+    }
+
     ponerBarcoAleatorio(tamanio) {
 
         //ponermos primero el de 5 casillas
@@ -104,7 +144,7 @@ class tablero {
             var posX = this.generarNumeroAleatorio();
             var posY = this.generarNumeroAleatorio();
             if (direccion == 'v') {
-                if (6 - posX > 0) {
+                if (posX + tamanio < 12) {
                     if (!this.comprobarSiColisionaAlPonerBarco(tamanio, posX, posY, direccion))
                         correcto = false;
                     else
@@ -112,7 +152,7 @@ class tablero {
                 }
             }
             else {
-                if (6 - posY > 0) {
+                if (posY + tamanio < 12) {
                     if (!this.comprobarSiColisionaAlPonerBarco(4, posX, posY, direccion))
                         correcto = false;
                     else
@@ -123,13 +163,15 @@ class tablero {
         } while (!correcto);
         var barcoGenerado = new barco(tamanio, posX, posY, direccion);
         this.barcos[this.numBarcos] = barcoGenerado;
-        this.pintarBarco(this.barcos[this.numBarcos]);
+        if(!this.maquina)
+            this.pintarBarco(this.barcos[this.numBarcos]);
+        
         correcto = false;
         this.numBarcos++;
 
     }
 
-
+ 
 
     comprobarSiColisionaAlPonerBarco(longitudBarco, posX, posY, direccion) {
 
@@ -138,7 +180,7 @@ class tablero {
         else
             posY--;
 
-        longitudBarco+=2;
+        longitudBarco += 2;
 
         var posXInicio = posX;
         var posYInicio = posY;
@@ -152,13 +194,13 @@ class tablero {
             var longitudArray = barcoAComprobar.obtenerLongitud();
             longitudArray--;
 
-            if(barcoAComprobar.obtenerDireccion() == 'v'){
+            if (barcoAComprobar.obtenerDireccion() == 'v') {
                 var aux = posisicionesX[longitudArray];
                 aux++
                 posisicionesX[longitudBarcoTMP] = aux;
                 posisicionesY[longitudBarcoTMP] = posisicionesY[longitudArray];
             }
-            else{
+            else {
                 var aux = posisicionesY[longitudArray];
                 aux++
                 posisicionesY[longitudBarcoTMP] = aux;
@@ -226,8 +268,5 @@ class tablero {
     }
 
 
-    comprobarBarcoHundido(){
-
-    }
 
 }
