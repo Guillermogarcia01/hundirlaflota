@@ -68,17 +68,25 @@ function manejador(e) {
 
 
 function atacar() {
-    posX = generarNumeroAleatorio();
-    posY = generarNumeroAleatorio();
 
-    var posicionesAtaque = posX.toString() + posY.toString();
-    alert(posicionesAtaque);
-    let posicionExistente = true;
+    do {
+        posX = generarNumeroAleatorio();
+        posY = generarNumeroAleatorio();
+
+        var posicionesAtaque = posX.toString() + posY.toString();
+        //alert(posicionesAtaque);
+        var posicionExistente = false;
 
 
-    for (let i = 0; i < posicionesAtacadas.length; ++i) {
-        if ()
+        for (let i = 0; i < posicionesAtacadas.length; ++i) {
+            if (posicionesAtacadas[i] == posicionesAtaque) {
+                posicionExistente =  true;
+            }
         }
+
+
+    } while (posicionExistente);
+
 
 
 
