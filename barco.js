@@ -75,3 +75,5 @@ class barco{
     }
 
 }
+
+module.exports.barco = barco;

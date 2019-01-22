@@ -1,0 +1,19 @@
+{
+  "name": "hundirLaFlota",
+  "version": "1.0.0",
+  "description": "motor del juego hundir la flota",
+  "main": "app.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "mocha"
+  },
+  "keywords": [],
+  "author": "Guillermo",
+  "license": "GPL",
+  "devDependencies": {
+    "chai": "*",
+    "mocha": "*"
+  }
+}
