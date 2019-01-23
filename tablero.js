@@ -13,7 +13,7 @@ class tablero {
         this.nombreTablero = nombreTablero;
         this.numBarcos = 0;
         this.barcosAColocar = 5;
-        this.maquina = maquina;
+        this.maquina = maquina; //variable para saber si es la maquina o es el jugador
 
         this.barcos = new Array(numBarcos);
         this.arrayTablero = new Array(this.columa);
@@ -270,3 +270,5 @@ class tablero {
 
 
 }
+
+module.exports.tablero = tablero;
