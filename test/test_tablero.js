@@ -1,4 +1,4 @@
-var expect = require('chai').expect;
+/*var expect = require('chai').expect;
 
 describe('compruebo metodos de la clase tablero', function () {
 
@@ -18,3 +18,4 @@ describe('compruebo metodos de la clase tablero', function () {
     
 
 }); 
+*/
