@@ -86,12 +86,6 @@ class tablero {
     }
 
 
-
-    prueba(fila, columa) {
-        this.arrayTablero[fila][columa] = 'x';
-        alert(this.nombreTablero);
-    }
-
     generarBarcosAleatorio() {
         //creo el barco de 5 posiciones
         this.ponerBarcoAleatorio(5);
