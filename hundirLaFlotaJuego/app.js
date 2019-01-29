@@ -41,25 +41,31 @@ function manejador(e) {
     else {
 
         if (tableroJugador2.comprobarAtaque(this.fila, this.columna)) {
-            alert("tocado wey");
+            document.getElementById("textoSalida").innerHTML = "Has tocado un barco";
             this.textContent = "O";
 
             if (tableroJugador2.comprobarHundido())
-                alert("barco hundido");
+                document.getElementById("textoSalida").innerHTML = "barco hundido";
 
-            if (tableroJugador2.comprobarFinJUego())
-                alert("fin del juego");
+            if (tableroJugador2.comprobarFinJUego()){
+                document.getElementById("textoSalida").innerHTML = "Has ganado";
+                quitarManejador(tableroJugador2);
+                return;
+            }
+
 
 
         } else {
             this.textContent = "X";
+            document.getElementById("textoSalida").innerHTML = "Has dado agua";
         }
         quitarManejadorAUnaPosicion(tableroJugador2, this.fila, this.columna);
 
         //quitar el listener de una posicion
+        atacar();
     }
 
-    atacar();
+    
     /*alert(this.fila);
     alert(this.columa);
     this.tablero.prueba(this.fila, this.columa);*/
@@ -69,28 +75,46 @@ function manejador(e) {
 
 function atacar() {
 
+    var posicionesAtaque;
     do {
         posX = generarNumeroAleatorio();
         posY = generarNumeroAleatorio();
 
-        var posicionesAtaque = posX.toString() + posY.toString();
+        posicionesAtaque = posX.toString() + posY.toString();
         //alert(posicionesAtaque);
         var posicionExistente = false;
 
 
         for (let i = 0; i < posicionesAtacadas.length; ++i) {
             if (posicionesAtacadas[i] == posicionesAtaque) {
-                posicionExistente =  true;
+                posicionExistente = true;
             }
         }
 
 
     } while (posicionExistente);
 
+    posicionesAtacadas.push(posicionesAtaque);
+
+
+    if (tableroJugador1.comprobarAtaque(posX, posY)) {
+        tableroJugador1.arrayTablero[posX][posY].textContent = "O";
+        document.getElementById("textoSalida").innerHTML =" te han tocado un barco";
+        if (tableroJugador1.comprobarHundido())
+            document.getElementById("textoSalida").innerHTML = "te han hundido un barco";
+
+
+        if (tableroJugador1.comprobarFinJUego()) {
+            document.getElementById("textoSalida").innerHTML = "Has perdido";
+            quitarManejador(tableroJugador2);
+        }
+    }
+    else{
+        tableroJugador1.arrayTablero[posX][posY].textContent = "X";
+    }
 
 
 
-    tableroJugador1.arrayTablero[posX][posY].textContent = "a";
 
 }
 
@@ -171,7 +195,7 @@ function dibujarTablero(tableroTMP) {
     }
     //this.aniadirManejador();
     //this.darEventoClick();
-};
+}
 
 
 window.onload = function () {

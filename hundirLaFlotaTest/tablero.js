@@ -1,6 +1,6 @@
 
 
-
+var barco = require('./barco').barco;
 var barcosPuestos = false;
 const numBarcos = 5;
 
@@ -129,7 +129,7 @@ class tablero {
 
         var barcoGenerado = new barco(tamanio, posX, posY, direccion);
         this.barcos[this.numBarcos] = barcoGenerado;
-        this.pintarBarco(this.barcos[this.numBarcos]);
+        //this.pintarBarco(this.barcos[this.numBarcos]);
         this.numBarcos++;
         return true;
 
@@ -267,7 +267,16 @@ class tablero {
         this.numBarcos--;
     }
 
+    obtenerBarcosColocados(){
+        return this.numBarcos;
+    }
 
+    obtenerCordenadasXBarco(numBarco){
+        return this.barcos[numBarco].obtenerCordenadasX();
+    }
+    obtenerCordenadasYBarco(numBarco){
+        return this.barcos[numBarco].obtenerCordenadasY();
+    }
 
 }
 
